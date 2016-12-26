@@ -1,0 +1,39 @@
+{
+  "name": "client-application",
+  "version": "0.0.1",
+  "description": "client for sentiment analyze service",
+  "main": "webpack.conf.js",
+  "scripts": {
+    "build": "fable",
+    "watch": "fable -w --target watch",
+    "test": "mocha ./out"
+  },
+  "dependencies": {
+    "core-js": "^2.4.1",
+    "isomorphic-fetch": "^2.2.1",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "source-map-loader": "^0.1.5",
+    "uglify-js": "2.7.5",
+    "fable-powerpack": "0.0.19",
+    "fable-react": "^0.7.14",
+    "fable": "^1.0.1",
+    "fable-compiler": "^0.7.22",
+    "fable-core": "^0.7.15",
+    "fable-plugins-nunit": "^0.7.2"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-runtime": "6.20.0",
+    "bootstrap": "^3.3.7",
+    "css-loader": "^0.26.1",
+    "file-loader": "^0.9.0",
+    "mocha": "^3.2.0",
+    "react-bootstrap": "^0.30.7",
+    "redux": "^3.6.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.14.0"
+  },
+  "author": "Dominik Kotecki",
+  "license": "MI
