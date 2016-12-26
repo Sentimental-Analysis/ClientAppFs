@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="dto.fs" />
     <Compile Include="client.fs" />
-    <None Include="Script.fsx" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">14</MinimumVisualStudioVersion>
