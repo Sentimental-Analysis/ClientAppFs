@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="dto.fs" />
+    <Compile Include="http.fs" />
     <Compile Include="client.fs" />
   </ItemGroup>
   <PropertyGroup>
