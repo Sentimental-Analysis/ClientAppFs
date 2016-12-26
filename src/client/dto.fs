@@ -18,3 +18,10 @@ type Score = {keyWords: Keyword[]
 
 
 type Result<'a> = { value: 'a; isSuccess: bool; messages: string[] }
+
+type Actions =
+    | Search of string
+
+
+let [<Literal>] ESCAPE_KEY = 27.
+let [<Literal>] ENTER_KEY = 13.
