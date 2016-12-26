@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="dto.fs" />
     <Compile Include="http.fs" />
+    <Compile Include="redux.fs" />
     <Compile Include="app.fs" />
     <Compile Include="client.fs" />
   </ItemGroup>
