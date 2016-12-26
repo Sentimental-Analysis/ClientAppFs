@@ -1,0 +1,20 @@
+{
+    "module": "commonjs",
+    "sourceMaps": true,
+    "projFile": "./src/client/client.fsproj",
+    "outDir": "out",
+    "babelPlugins": [
+        "transform-runtime"
+    ],
+    "copyExt": true,
+    "scripts": {
+        "postbuild": "webpack"
+    },
+    "targets": {
+        "watch": {
+            "scripts": {
+                "postbuild": "webpack --watch"
+            }
+        }
+    }
+}
