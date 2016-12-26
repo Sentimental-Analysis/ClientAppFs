@@ -36,4 +36,5 @@
     "webpack": "^1.14.0"
   },
   "author": "Dominik Kotecki",
-  "license": "MI
+  "license": "MIT"
+}
