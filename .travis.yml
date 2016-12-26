@@ -1,0 +1,9 @@
+language: csharp
+sudo: true
+before_script:
+- nvm install 7.2.1
+- nvm use 7.2.1
+- npm install -g fable-compiler
+- npm install
+script:
+- fable
