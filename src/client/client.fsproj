@@ -46,6 +46,7 @@
     <Reference Include="../../node_modules/fable-react/Fable.React.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dto.fs" />
     <Compile Include="client.fs" />
     <None Include="Script.fsx" />
   </ItemGroup>
