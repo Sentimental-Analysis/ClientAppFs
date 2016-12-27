@@ -4,25 +4,19 @@ open Fable.Import
 open Fable.Core
 open Fable.Core.JsInterop
 
-type IStore<'TState, 'TAction> = interface end
+type IStore<'TState, 'TAction> =
+        abstract dispatch: 'TAction->unit
+        abstract subscribe: (unit->unit)->unit
+        abstract getState: unit->'TState
 
-let [<Import("createStore","redux")>] private createStore' = obj()
+    let private createStore_: JsFunc = import "createStore" "redux"
 
-let createStore (reducer: 'TState -> 'TAction -> 'TState) (initState: 'TState) = 
-    let reducer = fun state action -> 
-        match box action?Case with
-        | :? string -> reducer state action
-        | _ -> state
-    match unbox Browser.window?devToolsExtension with
-        | Some ext -> createStore'$(Func<_,_,_> reducer, initState, ext$())
-        | None -> createStore'$(Func<_,_,_> reducer, initState)
-        |> unbox<IStore<'TState, 'TAction>>
-
-
-let dispatch (store: IStore<'TState, 'TAction>) (x: 'TAction) =
-    x?``type`` <- x?Case
-    store?dispatch(x) |> ignore
-let inline subscribe (store: IStore<'TState, 'TAction>) (f: unit->unit) =
-    store?subscribe(f) |> ignore
-let inline getState (store: IStore<'TState, 'TAction>) =
-        store?getState() |> unbox<'TState>
+    let createStore (reducer: 'TState->'TAction->'TState) (initState: 'TState): IStore<'TState, 'TAction> =
+        // Check if the action is a lifecycle event dispatched by Redux before applying the reducer
+        let jsReducer = JsFunc2(fun _this state action ->
+            match !!action?``type``: obj with
+            | :?string as s when s.StartsWith "@@" -> state
+            | _ -> reducer state action)
+        match !!Browser.window?devToolsExtension: JsFunc with
+        | null -> !!createStore_.Invoke(jsReducer, initState)
+        | ext -> !!createStore_.Invoke(jsReducer, initState, ext.Invoke())
