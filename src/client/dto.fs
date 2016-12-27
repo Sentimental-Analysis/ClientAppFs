@@ -1,6 +1,9 @@
 module Dto
 open Fable.Core
 
+[<Literal>]
+let BaseUrl = "http://138.91.185.214"
+
 [<Erase>]
 type Sentiment =
     | Negative = 0
