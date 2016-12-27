@@ -7,7 +7,7 @@ open R.Props
 open Dto
 open Utils
 
-module TextInputBox =
+module TextInputComponent =
     open JsInterop
 
     [<Pojo>]
@@ -15,9 +15,9 @@ module TextInputBox =
     [<Pojo>]
     type TextInputState = { Text: string }
 
-    type TextInput(props) =
+    type TextInput(props) as this =
         inherit React.Component<TextInputProps, TextInputState>(props)
-        do base.setInitState({ Text = "" })
+        do base.setInitState({ Text = defaultArg this.props.Text "" })
 
         member this.HandleSubmit(e: React.KeyboardEvent) =
             if e.which = ENTER_KEY then 
@@ -44,11 +44,11 @@ module TextInputBox =
                 Placeholder this.props.Placeholder
             ] []
 
-module SubmitButton =
+module SubmitButtonComponent =
     [<Pojo>]
     type ButtonProps = { Value : string } 
 
-    type ButtonComponent(props, ctx) = 
+    type SubmitButton(props, ctx) = 
         inherit React.Component<ButtonProps, obj>(props)
     
         member this.render() =
@@ -57,7 +57,35 @@ module SubmitButton =
                 Type "submit"
                 Value (U2.Case1 this.props.Value)
                 ][]
-                
-module SearchContainer = 
+
+module SearchComponent = 
+    open TextInputComponent
+    open SubmitButtonComponent
+
     [<Pojo>]
     type SearchBoxProps = { Search: string -> unit; isSearching: bool }
+
+    type SearchBox(props) =
+        inherit React.Component<SearchBoxProps, obj>(props)
+
+        member this.render() =
+            let textInput = 
+               R.com<TextInput,_,_> 
+                    { OnSearch = fun (text: string) -> 
+                        if text.Length <> 0 then 
+                            this.props.Search text
+                       ; Placeholder = "Wpisz fraze"
+                       ; Search = this.props.isSearching
+                       ; Text = None
+                   } []
+            let button = R.input[
+                            ClassName (classNames [("btn", true); ("btn-default", true); ("btn-lg", true)])
+                            Type "submit"
+                            Value (U2.Case1 "Szukaj")
+                            ][]                              
+            let form = R.div[ClassName (classNames [("input-group", true); ("input-group-lg", true)])] [
+                        textInput
+                        R.span [ClassName "input-group-btn"] [R.com<SubmitButton, _, _> { Value = "Szukaj" } []]
+                    ]
+            let inputGroup = R.div[ClassName "col-lg-12"][form]
+            R.div [ClassName "row"] [inputGroup]                     
