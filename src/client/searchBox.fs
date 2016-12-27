@@ -6,11 +6,14 @@ module R = Fable.Helpers.React
 open R.Props
 module TextInputBox =
     [<Pojo>]
-    type ITextInputProps =
-        abstract OnSearch: string->unit
-        abstract Text: string option
-        abstract Placeholder: string
-        abstract Search: bool
+    type TextInputProps = { OnSearch: string->unit; Text: string option; Placeholder: string; Search: bool}
+    [<Pojo>]
+    type TextInputState = { Text: string }
+
+    type TextInput(props) =
+        inherit React.Component<TextInputProps, TextInputState>(props)
+        do base.setInitState({ Text = defaultArg props.Text "" })xtInput 
+
 
 module SearchContainer = 
     [<Pojo>]
