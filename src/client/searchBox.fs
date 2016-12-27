@@ -12,7 +12,7 @@ module TextInputBox =
 
     type TextInput(props) =
         inherit React.Component<TextInputProps, TextInputState>(props)
-        do base.setInitState({ Text = defaultArg props.Text "" })xtInput 
+        do base.setInitState({ Text = "" }) 
 
 
 module SearchContainer = 
